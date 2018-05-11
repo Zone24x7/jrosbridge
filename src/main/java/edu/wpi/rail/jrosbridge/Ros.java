@@ -203,6 +203,8 @@ public class Ros {
 			URI uri = new URI(this.getURL());
 			ContainerProvider.getWebSocketContainer()
 					.connectToServer(this, uri);
+			ContainerProvider.getWebSocketContainer().setAsyncSendTimeout(1000);
+			ContainerProvider.getWebSocketContainer().setDefaultMaxBinaryMessageBufferSize(20971520);
 			return true;
 		} catch (DeploymentException | URISyntaxException | IOException e) {
 			// failed connection, return false
@@ -411,14 +413,9 @@ public class Ros {
 	public boolean send(JsonObject jsonObject) {
 		// check the connection
 		if (this.isConnected()) {
-			try {
-				// send it as text
-				this.session.getBasicRemote().sendText(jsonObject.toString());
-				return true;
-			} catch (IOException e) {
-				System.err.println("[ERROR]: Could not send message: "
-						+ e.getMessage());
-			}
+			// send it as text            
+            this.session.getAsyncRemote().sendText(jsonObject.toString());				
+            return true;
 		}
 		// message send failed
 		return false;

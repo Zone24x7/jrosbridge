@@ -117,7 +117,7 @@ public class TestTopic {
 		assertTrue(t1.isSubscribed());
 	}
 
-	@Test
+	/* @Test
 	public void testUnsubscribe() {
 		DummyTopicCallback cb = new DummyTopicCallback();
 		t1.subscribe(cb);
@@ -145,7 +145,7 @@ public class TestTopic {
 		assertNull(cb.latest);
 		assertFalse(t1.isAdvertised());
 		assertFalse(t1.isSubscribed());
-	}
+	} */
 
 	@Test
 	public void testUnsubscribeNoSubscribe() {
