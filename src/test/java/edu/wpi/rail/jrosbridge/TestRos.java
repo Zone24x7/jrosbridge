@@ -93,6 +93,7 @@ public class TestRos {
 		assertTrue(r1.connect());
 		assertTrue(r1.isConnected());
 		server.stop();
+		//Fixed by giving some time to let websocket connection to disconnect.
 		Thread.sleep(1000);
 		assertFalse(r1.isConnected());
 	}
@@ -102,6 +103,7 @@ public class TestRos {
 		assertTrue(r1.connect());
 		assertTrue(r1.isConnected());
 		server.stop();
+		//Fixed by giving some time to let websocket connection to disconnect.
 		Thread.sleep(1000);
 		assertFalse(r1.isConnected());
 	}

@@ -21,6 +21,7 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.WebSocketContainer;
 
 import edu.wpi.rail.jrosbridge.callback.CallServiceCallback;
 import edu.wpi.rail.jrosbridge.services.ServiceRequest;
@@ -201,10 +202,10 @@ public class Ros {
 		try {
 			// create a WebSocket connection here
 			URI uri = new URI(this.getURL());
-			ContainerProvider.getWebSocketContainer()
-					.connectToServer(this, uri);
-			ContainerProvider.getWebSocketContainer().setAsyncSendTimeout(1000);
-			ContainerProvider.getWebSocketContainer().setDefaultMaxBinaryMessageBufferSize(20971520);
+			WebSocketContainer socketContainer = ContainerProvider.getWebSocketContainer();
+			//Added a timeout to prevent the message sent through web-socket to hold up because of connection failures
+			socketContainer.setAsyncSendTimeout(1000);
+			socketContainer.connectToServer(this, uri); 
 			return true;
 		} catch (DeploymentException | URISyntaxException | IOException e) {
 			// failed connection, return false
@@ -215,7 +216,7 @@ public class Ros {
 	}
 
 	/**
-	 * Disconnect the connection to rosbridge. Errors are printed to the error
+	 * Disconnect the connection to ros-bridge. Errors are printed to the error
 	 * output stream.
 	 * 
 	 * @return Returns true if the disconnection was successful and false
@@ -304,7 +305,7 @@ public class Ros {
 	 */
 	@OnMessage
 	public void onMessage(String message) {
-		try {
+		try {		    
 			// parse the JSON
 			JsonObject jsonObject = Json
 					.createReader(new StringReader(message)).readObject();
@@ -413,7 +414,9 @@ public class Ros {
 	public boolean send(JsonObject jsonObject) {
 		// check the connection
 		if (this.isConnected()) {
-			// send it as text            
+			// send it as text
+		    //Fixed hangs while sending messages over websocket connection by changing basic remote client to an async remote websocket client.
+		    //A timeout was added above where websocket connection was made. 
             this.session.getAsyncRemote().sendText(jsonObject.toString());				
             return true;
 		}
