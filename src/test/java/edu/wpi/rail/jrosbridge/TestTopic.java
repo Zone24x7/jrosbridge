@@ -117,7 +117,8 @@ public class TestTopic {
 		assertTrue(t1.isSubscribed());
 	}
 
-	@Test
+	
+	 @Test
 	public void testUnsubscribe() {
 		DummyTopicCallback cb = new DummyTopicCallback();
 		t1.subscribe(cb);
@@ -135,6 +136,12 @@ public class TestTopic {
 								+ JRosbridge.FIELD_MESSAGE
 								+ "\":{\"test1\":\"test2\"}}").build());
 		Thread.yield();
+		
+		//Fixed by adding a while loop till latest parameter to be updated from the message sent above.
+		while (DummyHandler.latest == null) {
+            Thread.yield();
+        }
+
 
 		assertNotNull(DummyHandler.latest);
 		assertEquals(

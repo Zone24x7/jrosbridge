@@ -7,7 +7,8 @@ public class DummyServer {
 	private Server s;
 
 	public DummyServer(int port) {
-		this.s = new Server("localhost", port, "", DummyHandler.class);
+	    //Had to add an additional parameter since constructor was updated in the latest tyrus server.
+		this.s = new Server("localhost", port, "",null,DummyHandler.class);
 	}
 
 	public boolean start() {
