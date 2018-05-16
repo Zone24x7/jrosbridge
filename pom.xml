@@ -10,13 +10,7 @@
 	<name>jrosbridge</name>
 	<url>https://github.com/rctoris/jrosbridge</url>
 
-	<dependencies>	
-		<dependency>
-			<groupId>javax.websocket</groupId>
-			<artifactId>javax.websocket-api</artifactId>
-			<scope>provided</scope>
-			<version>1.1</version>
-		</dependency>
+	<dependencies>			
 		<dependency>
 			<groupId>org.glassfish.tyrus</groupId>
 			<artifactId>tyrus-client</artifactId>
