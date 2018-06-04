@@ -38,6 +38,9 @@ public class TestTopic {
 	@After
 	public void tearDown() {
 		ros.disconnect();
+		while(ros.isConnected()) {
+		    Thread.yield();
+		}
 		server.stop();
 		DummyHandler.latest = null;
 	}
