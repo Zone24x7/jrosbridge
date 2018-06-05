@@ -43,6 +43,9 @@ public class TestTopic {
 		}
 		server.stop();
 		DummyHandler.latest = null;
+		
+		ros = null;
+		server = null;
 	}
 
 	@Test
