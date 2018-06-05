@@ -16,6 +16,26 @@ To include this library, use the following in your Maven configuration:
 </dependency>
 ```
 
+To include this dependency inside ZONE network, use the following in your Maven configuration:
+
+```
+	<dependencies>
+		<dependency>
+		    <groupId>aziro.robot.rosbridge</groupId>
+			<artifactId>jrosbridge</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>acme-nexus-releases</id>
+			<name>acme nexus</name>
+			<url>https://nexus.zone24x7.lk/repository/snapshots</url>
+		</repository>
+	</repositories>
+```
+
 
 ```java
 public static void main(String[] args) throws InterruptedException {
