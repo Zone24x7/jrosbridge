@@ -26,6 +26,7 @@ import javax.websocket.WebSocketContainer;
 import edu.wpi.rail.jrosbridge.callback.CallServiceCallback;
 import edu.wpi.rail.jrosbridge.services.ServiceRequest;
 import org.glassfish.grizzly.http.util.Base64Utils;
+import org.glassfish.tyrus.client.ClientManager;
 
 import edu.wpi.rail.jrosbridge.callback.ServiceCallback;
 import edu.wpi.rail.jrosbridge.callback.TopicCallback;
@@ -204,8 +205,11 @@ public class Ros {
             URI uri = new URI(this.getURL());
             WebSocketContainer socketContainer = ContainerProvider.getWebSocketContainer();
             //Added a timeout to prevent the message sent through web-socket to hold up because of connection failures
-            socketContainer.setAsyncSendTimeout(1000);
-            socketContainer.connectToServer(this, uri); 
+            //Changed client connection method to set incomingbuffersize to support lidar map up to 60mb
+            socketContainer.setAsyncSendTimeout(1000);            
+            ClientManager client = ClientManager.createClient(socketContainer);
+            client.getProperties().put("org.glassfish.tyrus.incomingBufferSize", 60000000);
+            client.connectToServer(this, uri); 
             return true;
         } catch (DeploymentException | URISyntaxException | IOException e) {
             // failed connection, return false
