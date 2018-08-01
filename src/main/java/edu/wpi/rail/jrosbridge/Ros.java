@@ -208,7 +208,7 @@ public class Ros {
             //Changed client connection method to set incomingbuffersize to support lidar map up to 60mb
             socketContainer.setAsyncSendTimeout(1000);            
             ClientManager client = ClientManager.createClient(socketContainer);
-            client.getProperties().put("org.glassfish.tyrus.incomingBufferSize", 60000000);
+            client.getProperties().put("org.glassfish.tyrus.incomingBufferSize", 90000000);
             client.connectToServer(this, uri); 
             return true;
         } catch (DeploymentException | URISyntaxException | IOException e) {
