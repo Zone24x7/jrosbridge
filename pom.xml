@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.wpi.rail</groupId>
   <artifactId>jrosbridge</artifactId>
-  <version>0.2.5-SNAPSHOT</version>
+  <version>0.2.5</version>
   <packaging>jar</packaging>
   <name>jrosbridge</name>
   <url>https://github.com/rctoris/jrosbridge</url>
